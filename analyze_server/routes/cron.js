@@ -16,7 +16,7 @@ const task = cron.schedule("* * * * * *", () => {
     const noFaceCounts = {};
     stack.forEach(function (x) { noFaceCounts[x] = (noFaceCounts[x] || 0) + 1; });
     
-    const badGuys = Object.keys(noFaceCounts).filter(e=>noFaceCounts[e] > 60);
+    const badGuys = Object.keys(noFaceCounts).filter(e=>noFaceCounts[e] > 4);
     for(let guy of badGuys) {
         axios.post("/attendance", {
             student: guy,
