@@ -9,7 +9,7 @@ import StudentCalendar from './pages/StudentCalendar'
 import { Icon } from '@iconify/react';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:5001";
+axios.defaults.baseURL = import.meta.env.VITE_API_SERVER;
 
 function App() {
   return (
