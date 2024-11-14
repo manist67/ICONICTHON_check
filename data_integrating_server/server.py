@@ -23,6 +23,8 @@ def saveStudent():
         print(e)
         con.rollback()
         return jsonify({"status": "fail", "error": str(e)}), 500
+    finally:
+        con.close()
 
 @app.route('/attendance', methods=['POST'])
 def saveAttendance():
@@ -85,6 +87,8 @@ def getAttitude(student_id):
         })
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
+    finally:
+        con.close()
 
 @app.route('/students', methods=['GET'])
 def getStudentList():
@@ -100,6 +104,8 @@ def getStudentList():
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
+    finally:
+        con.close()
     
 
 @app.route('/attendances/<int:student_id>', methods=['GET'])
@@ -117,6 +123,8 @@ def getAttendenceList(student_id):
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
+    finally:
+        con.close()
 
 @app.route('/attitudes/<int:student_id>', methods=['GET'])
 def getAttitudeList(student_id):
@@ -133,5 +141,7 @@ def getAttitudeList(student_id):
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
+    finally:
+        con.close()
 
 app.run(host='0.0.0.0', port=5001, debug=True);
