@@ -1,0 +1,72 @@
+.student-calendar-wrapper h2 {
+  margin-bottom: 48px;
+  text-align: center;
+}
+.student-calendar-wrapper h2 .span-name {
+  font-size: 24px;
+  color: #068AFF;
+  font-weight: 700;
+}
+.student-calendar-wrapper h2 .span-subtitle {
+  font-size: 20px;
+  color: #000000;
+  font-weight: 400;
+  margin-left: 8px;
+}
+.student-calendar-wrapper .calendar-wrapper {
+  background: #F3F3F3;
+  padding: 32px;
+  border-radius: 32px;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator {
+  display: flex;
+  justify-content: space-between;
+  padding:16px;
+  margin-bottom: 24px;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator h1 i{
+  font-weight: 300;
+  margin-left: 12px;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator .calendar-controller {
+  display: flex;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator .calendar-controller button {
+  display: block;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 4px;
+}
+.student-calendar-wrapper .calendar-wrapper .calendar-indicator .calendar-controller button:hover {
+  opacity: 0.9;
+}
+
+.calendar .div-line {
+  display: flex;
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  font-size: 12px;
+  font-weight: 400;
+}
+.calendar .div-date {
+  flex: 1;
+  text-align: center;
+}
+.calendar .div-date.item {
+  padding-bottom: 64px;
+}
+.calendar .div-date p {
+  padding-bottom: 8px;
+  color: black;
+}
+.calendar .div-date p.previous,
+.calendar .div-date p.next {
+  color: #252525a0
+}

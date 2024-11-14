@@ -1,34 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  BrowserRouter, Routes, Route
+} from 'react-router-dom'
+import './assets/App.css'
+import StudentList from './pages/StudentList'
+import Sidebar from './components/sidebar'
+import StudentDetail from './pages/StudentDetail'
+import StudentCalendar from './pages/StudentCalendar'
+import { Icon } from '@iconify/react';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+		<header>
+			<div className='header-wrapper'>
+				<h1 className="h1-logo">IGC</h1>
+				<h2 className="h2-title">동국대학교 학생 상태 현황 대시보드</h2>
+			</div>
+		</header>
+		<nav>
+			<div className='nav-wrapper'>
+				<Icon icon="uiw:menu" color='#068AFF' fontSize={32}/>
+				<p>인공지능</p>
+			</div>
+		</nav>
+		<main>
+			<Sidebar></Sidebar>
+			<section>
+				<Routes>
+					<Route path='/' Component={StudentList}></Route>
+					<Route path='/:id/detail' Component={StudentDetail}></Route>
+					<Route path='/:id/calendar' Component={StudentCalendar}></Route>
+				</Routes>
+			</section>
+		</main>
+    </BrowserRouter>
   )
 }
 

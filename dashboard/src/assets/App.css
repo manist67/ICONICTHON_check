@@ -1,0 +1,57 @@
+#root {
+  min-width: 100%;
+  margin: 0 auto;
+  font-family: "Inter",  "Noto Sans KR", serif, sans-serif;
+  font-weight: 500;
+}
+
+header {
+  border-bottom: 1px solid #A6A6A6;
+}
+header .header-wrapper {
+  max-width: 1440px;
+  margin:auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+}
+header .h1-logo {
+  font-size: 48px;
+  font-weight: 700;
+  color: #068AFF;
+}
+header .h2-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #777777;
+}
+
+nav {
+  border-bottom: 1px solid #A6A6A6;
+}
+nav .nav-wrapper{
+  max-width: 1440px;
+  margin: auto;
+  padding: 16px 32px;
+  font-size: 24px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+}
+nav p {
+  font-size: 24px;
+  color: #000000;
+  margin-left: 8px;
+}
+
+main {
+  display: flex;
+  max-width: 1440px;
+  margin: auto;
+}
+
+section {
+  flex: 1;
+  box-sizing: border-box;
+}

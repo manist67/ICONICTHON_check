@@ -1,0 +1,40 @@
+.student-card {
+  cursor: pointer;
+  position: relative;
+  background-color: #F3F3F3;
+  padding: 32px 32px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+}
+
+.attendance-label {
+  position: absolute;
+  width: 100px;
+  line-height: 36px;
+  border-radius: 28px;
+  background-color: #D2F0FF;
+  right: 16px;
+  top: 16px;
+  display: inline-block;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+}
+.attendance-label.run {
+  background-color: #FEE6C9;
+}
+.attendance-label.disappear {
+  background-color: #FFD9D9;
+}
+
+.div-name {
+  display: inline-block;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 400;
+}
