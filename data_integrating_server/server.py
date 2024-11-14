@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import sqlite3 as sql
 from AttendanceEnum import AttendanceStatus
 
@@ -21,10 +22,7 @@ def saveStudent():
         return jsonify({"status": "success", "message": "Record success"})
     except Exception as e:
         print(e)
-        con.rollback()
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
 
 @app.route('/attendance', methods=['POST'])
 def saveAttendance():
@@ -45,8 +43,6 @@ def saveAttendance():
             print(e)
             con.rollback()
             return jsonify({"status": "fail", "error": str(e)}), 500
-        finally:
-            con.close()
 
         return jsonify({"status": "success", "message": "Record success"})
 
@@ -66,10 +62,8 @@ def saveAttitude():
             con.commit()
     except Exception as e:
         print(e)
-        con.rollback()
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
+
 
     return jsonify({"status": "success", "message": "Record success"})
         
@@ -87,8 +81,7 @@ def getAttitude(student_id):
         })
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
+
 
 @app.route('/students', methods=['GET'])
 def getStudentList():
@@ -104,8 +97,7 @@ def getStudentList():
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
+
     
 
 @app.route('/attendances/<int:student_id>', methods=['GET'])
@@ -123,8 +115,7 @@ def getAttendenceList(student_id):
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
+
 
 @app.route('/attitudes/<int:student_id>', methods=['GET'])
 def getAttitudeList(student_id):
@@ -141,7 +132,7 @@ def getAttitudeList(student_id):
         return jsonify(result)
     except Exception as e:
         return jsonify({"status": "fail", "error": str(e)}), 500
-    finally:
-        con.close()
 
+
+CORS(app)
 app.run(host='0.0.0.0', port=5001, debug=True);
