@@ -2,7 +2,7 @@ import axios from "axios";
 
 const startAudio = document.getElementById('start-button');
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://manist.store:3000";
 
 (() => {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -34,7 +34,7 @@ axios.defaults.baseURL = "http://localhost:3000";
 let animation = null;
 let frame = 0 ;
 function sendImageToServer() {
-  if(frame++ % 10 == 0) {
+  if(frame++ % 30 == 0) {
     var cameraView = document.getElementById("cameraview");
     var cameraCanvas = document.getElementById("cameracanvas");
     var context = cameraCanvas.getContext("2d");
