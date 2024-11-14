@@ -7,6 +7,27 @@
   margin-bottom: 32px;
 }
 
+.student-card .student-graph {
+  max-width: 1000px;
+  height: 80px;
+  display: flex;
+  align-items: end;
+  padding-left: 80px;
+  box-sizing: border-box;
+}
+.student-card .student-graph .bar {
+  width: 10px;
+}
+.student-card .student-graph .bar-top {
+  height: 100%;
+  background: #068AFF;
+}
+
+.student-card .student-graph .bar-bottom {
+  height: 30%;
+  background: #FF8C00;
+}
+
 .attendance-label {
   position: absolute;
   width: 100px;

@@ -1,6 +1,7 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from 'classnames';
+import axios from 'axios';
 
 // eslint-disable-next-line react/prop-types
 export default function StudentCard({ studentId, studentName, studentStatus }) {
@@ -32,6 +33,15 @@ export default function StudentCard({ studentId, studentName, studentStatus }) {
       e.stopPropagation();
     }, [ navigate, studentId ])
 
+    const [ attitudes, setAttitudes ] = useState([]);
+    useEffect(()=>{
+      async function fetchData() {
+        const { data } = await axios.get(`/attitudes/${studentId}`);
+        setAttitudes(data.filter((_,i) => (i < 100)).reverse());
+      }
+      fetchData();
+    }, [ studentId ])
+
     return (
       <div className='student-card' onClick={onClickStudent}>
           <div className="div-name">
@@ -39,6 +49,14 @@ export default function StudentCard({ studentId, studentName, studentStatus }) {
           </div>
           <div className={classNames('attendance-label', studentStatusLabel)} onClick={onClickCalendar}>
               {studentStatusKorean}
+          </div>
+          <div className="student-graph">
+            {attitudes.map((e, i)=>{
+              const per = Math.floor(Math.random() * 20 - 10) + (!e.attitude ? 30 : 90)
+              return <div key={`${studentId}-bar-${i}`} 
+                style={{height: `${per}%`}}
+                className={classNames("bar", !e.attitude ? 'bar-bottom': 'bar-top')}/>
+            })}
           </div>
       </div>
     )
