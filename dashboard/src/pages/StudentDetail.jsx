@@ -31,7 +31,8 @@ export default function StudentDetail() {
             if(Number.isInteger(data?.result)) setStudentAttitude(data.result ? "집중" : "집중 못 ");
         }
 
-        setInterval(() => {
+
+        let intervalId = setInterval(() => {
             fetchStudent();
             fetchAttendance();
             fetchAttitude();
@@ -40,6 +41,8 @@ export default function StudentDetail() {
         fetchStudent();
         fetchAttendance();
         fetchAttitude();
+
+        return () => { if(intervalId) clearInterval(intervalId); }
     }, [ params ])
 
     return (

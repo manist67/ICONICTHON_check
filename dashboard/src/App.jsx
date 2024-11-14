@@ -1,5 +1,5 @@
 import {
-  BrowserRouter, Routes, Route
+  BrowserRouter, Routes, Route, HashRouter
 } from 'react-router-dom'
 import './assets/App.css'
 import StudentList from './pages/StudentList'
@@ -13,7 +13,7 @@ axios.defaults.baseURL = import.meta.env.VITE_API_SERVER;
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
 		<header>
 			<div className='header-wrapper'>
 				<h1 className="h1-logo">IGC</h1>
@@ -36,7 +36,7 @@ function App() {
 				</Routes>
 			</section>
 		</main>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
