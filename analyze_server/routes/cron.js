@@ -1,6 +1,7 @@
 const cron = require('node-cron');
 const axios = require('axios');
 
+let stack = [];
 const queue = {};
 const task = cron.schedule("* * * * * *", () => {
     const itemKeys = Object.keys(queue).filter(key=>{
@@ -11,6 +12,19 @@ const task = cron.schedule("* * * * * *", () => {
         runImagesPredict(key, queue[key])
         queue[key] = [];
     }
+
+    const noFaceCounts = {};
+    stack.forEach(function (x) { noFaceCounts[x] = (noFaceCounts[x] || 0) + 1; });
+    
+    const badGuys = Object.keys(noFaceCounts).filter(e=>noFaceCounts[e] > 60);
+    for(let guy of badGuys) {
+        axios.post("/attendance", {
+            student: guy,
+            time: Date.now(),
+            attendanceStatus: "LEAVE"
+        });
+        stack = stack.filter(e=>e!=guy);
+    }
 })
 
 function addImages(imageObj) {
@@ -20,7 +34,7 @@ function addImages(imageObj) {
 
 const { spawn } = require('child_process');
 function runImagesPredict(id, images) {
-    const pypred = spawn('python', [
+    const pypred = spawn('python3', [
         './image_analyzer/imageManyMany.py',
         id,
         ...images.map(e=>e.filename)
@@ -33,8 +47,9 @@ function runImagesPredict(id, images) {
         switch(data.toString().split(":")[1].trim()) {
             case "focus": res = 1; break;
             case "sleep": res = 0; break;
-            case "no_data": res = -1; break;
-            default: res = -1; break;
+            case "no_data": default: 
+                stack.push(id);
+                return;
         }
 
         axios.post("/attitude", {
