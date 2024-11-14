@@ -8,6 +8,8 @@ function base64_decode(base64Str, filename) {
   const pathname = path.resolve(__dirname, '../files', `${filename}.${ext}`);
 
   fs.writeFileSync(pathname, base64Image, { encoding: 'base64' });
+
+  return pathname;
 }
 
 module.exports = base64_decode
