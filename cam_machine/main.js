@@ -2,6 +2,7 @@ import axios from "axios";
 
 const startAudio = document.getElementById('start-button');
 
+axios.defaults.baseURL = "http://localhost:3000";
 
 (() => {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -42,7 +43,7 @@ function sendImageToServer() {
     context.drawImage(cameraView, 0, 0, cameraCanvas.width, cameraCanvas.height);
     var imageBase64 = cameraCanvas.toDataURL("image/png");
     
-    axios.post("http://localhost:3000/upload/image", {
+    axios.post("/upload/image", {
       file: imageBase64,
       studentId: document.getElementById("student-id").value
     });
@@ -80,7 +81,7 @@ startAudio.addEventListener("click", async function() {
   mediaRecorder.ondataavailable = (e) => {
     const chunks = [e.data];
 
-    const blob = new Blob(chunks, { type: "audio/mpeg-3" });
+    const blob = new Blob(chunks, { type: "audio/wav" });
     const reader = new FileReader();
       
     reader.readAsDataURL(blob); 
@@ -88,7 +89,7 @@ startAudio.addEventListener("click", async function() {
       const base64data = reader.result;
       // base64 converted!
       console.log(base64data);
-      await axios.post("http://localhost:3000/upload/audio", {
+      await axios.post("/upload/audio", {
         file: base64data,
         studentId: document.getElementById("student-id").value
       })
