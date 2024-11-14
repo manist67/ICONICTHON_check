@@ -22,7 +22,7 @@ def saveStudent():
     except Exception as e:
         print(e)
         con.rollback()
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
 
 @app.route('/saveattendance/', methods=['POST'])
 def saveAttendance():
@@ -42,7 +42,7 @@ def saveAttendance():
         except Exception as e:
             print(e)
             con.rollback()
-            return jsonify({"status": "fail", "error": str(e)})
+            return jsonify({"status": "fail", "error": str(e)}), 500
         finally:
             con.close()
             return jsonify({"status": "success", "message": "Record success"})
@@ -65,7 +65,7 @@ def saveAttitude():
     except Exception as e:
         print(e)
         con.rollback()
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
         
 @app.route('/attitude/<int:student_id>/', methods=['GET'])
 def getAttitude(student_id):
@@ -78,7 +78,7 @@ def getAttitude(student_id):
             rows = cur.fetchall()
         return jsonify(rows)
     except Exception as e:
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
 
 @app.route('/studentlist/', methods=['GET'])
 def getStudentList():
@@ -93,7 +93,7 @@ def getStudentList():
             result =[dict(row) for row in rows]
         return jsonify(result)
     except Exception as e:
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
     
 
 @app.route('/attdencelist/<int:student_id>/', methods=['GET'])
@@ -110,7 +110,7 @@ def getAttendenceList(student_id):
             result =[dict(row) for row in rows]
         return jsonify(result)
     except Exception as e:
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
 
 @app.route('/attitudelist/<int:student_id>/', methods=['GET'])
 def getAttitudeList(student_id):
@@ -125,6 +125,6 @@ def getAttitudeList(student_id):
             result =[dict(row) for row in rows]
         return jsonify(result)
     except Exception as e:
-        return jsonify({"status": "fail", "error": str(e)})
+        return jsonify({"status": "fail", "error": str(e)}), 500
 
 app.run(port=5001, debug=True)
