@@ -5,7 +5,7 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const axios = require('axios');
-axios.defaults.url = "http://localhost:5001";
+axios.defaults.baseURL = "http://localhost:5001";
 
 const indexRouter = require('./routes/index');
 const uploadRouter = require('./routes/upload')

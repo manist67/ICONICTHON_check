@@ -23,12 +23,14 @@ function runImagesPredict(id, images) {
     const pypred = spawn('python', [
         './image_analyzer/imageManyMany.py',
         id,
-        ...images
+        ...images.map(e=>e.filename)
     ]);
+
 
     pypred.stdout.on('data', function(data) {
         let res;
-        switch(data.toString().split(":")[1]) {
+        console.log(data.toString())
+        switch(data.toString().split(":")[1].trim()) {
             case "focus": res = 1; break;
             case "sleep": res = 0; break;
             case "no_data": res = -1; break;
@@ -37,7 +39,7 @@ function runImagesPredict(id, images) {
 
         axios.post("/attitude", {
             student: id,
-            time: Date.now().getTime(),
+            time: Date.now(),
             attitude: res
         });
     });
