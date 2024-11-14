@@ -60,11 +60,28 @@
   text-align: center;
 }
 .calendar .div-date.item {
-  padding-bottom: 64px;
+  height: 96px;
 }
-.calendar .div-date p {
+.calendar .div-date p.date-indicator {
   padding-bottom: 8px;
   color: black;
+}
+.calendar .div-date p.attendance {
+  padding: 4px;
+  color: black;
+  text-align: left;
+  font-size: 16px;
+}
+.calendar .div-date p.attendance.ATTEND {
+  background-color: #D2F0FF;
+}
+.calendar .div-date p.attendance.LEAVE,
+.calendar .div-date p.attendance.FAKE  {
+  background-color: #FEE6C9;
+}
+.calendar .div-date p.attendance.ABSENT {
+  background-color: #FFD9D9;
+  
 }
 .calendar .div-date p.previous,
 .calendar .div-date p.next {

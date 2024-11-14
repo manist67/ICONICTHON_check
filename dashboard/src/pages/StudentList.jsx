@@ -1,14 +1,25 @@
 import Title from "../components/Title";
 import '../assets/StudentList.css'
 import StudentCard from "../components/StudentCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function StudentList() {
-    const [ studentList,  ] = useState([
-        { id: 1, name: "김철각", status: "appear" },
-        { id: 1, name: "도철각", status: "run" },
-        { id: 1, name: "박국각", status: "disappear" },
-    ]);
+    const [ studentList, setStudentList ] = useState([]);
+
+    useEffect(()=>{
+        async function fetchData() {
+            const { data } = await axios.get("/students");
+            setStudentList(await Promise.all(data.map(async e=>{
+                const { data: attendance } = await axios.get(`/attendances/${e.id}`);
+                console.log(attendance)
+                if(attendance.length >= 1) e['status'] = attendance[attendance.length - 1].attendanceStatus;
+                return e;
+            })));
+        }
+
+        fetchData();
+    }, [])
 
     return (
         <>

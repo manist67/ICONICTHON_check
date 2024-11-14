@@ -33,5 +33,22 @@
 .student-detail-wrapper .status-wrapper p i {
   font-size: 40px;
   font-weight: 700;
+}
+.student-detail-wrapper .status-wrapper p i.ATTEND {
   color: #068AFF;
+}
+.student-detail-wrapper .status-wrapper p i.ABSENT {
+  color: #CF0000;
+}
+.student-detail-wrapper .status-wrapper p i.LEAVE {
+  color: #FF8C00;
+}
+.student-detail-wrapper .status-wrapper p i.FAKE {
+  color: #FF8C00;
+}
+.student-detail-wrapper .status-wrapper p i.BLUE {
+  color: #068AFF;
+}
+.student-detail-wrapper .status-wrapper p i.RED {
+  color: #CF0000;
 }

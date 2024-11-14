@@ -6,17 +6,18 @@ import classNames from 'classnames';
 export default function StudentCard({ studentId, studentName, studentStatus }) {
     const studentStatusKorean = useMemo(()=>{
       switch(studentStatus) {
-        case "appear": return "출 석";
-        case "disappear": return "결 석";
-        case "run": return "출 튀";
+        case "ATTEND": return "출 석";
+        case "ABSENT": return "결 석";
+        case "LEAVE": return "출 튀";
+        case "FAKE": return "대리 출석";
       }
     }, [ studentStatus ]);
   
     const studentStatusLabel = useMemo(()=>{
       switch(studentStatus) {
-        case "appear": return "";
-        case "disappear": return "disappear";
-        case "run": return "run";
+        case "ATTEND": return "";
+        case "ABSENT": return "disappear";
+        case "LEAVE": case "FAKE": return "run";
       }
     }, [ studentStatus ]);
 

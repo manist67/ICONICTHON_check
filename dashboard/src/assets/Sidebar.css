@@ -16,6 +16,10 @@ aside a {
   text-decoration: none;
 }
 
+aside a.disable {
+  color: #4B4B4B90;
+  cursor: not-allowed;
+}
 aside a.active {
   background-color: #068AFF;
   color: white;

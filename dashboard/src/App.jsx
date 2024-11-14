@@ -7,7 +7,9 @@ import Sidebar from './components/sidebar'
 import StudentDetail from './pages/StudentDetail'
 import StudentCalendar from './pages/StudentCalendar'
 import { Icon } from '@iconify/react';
+import axios from 'axios';
 
+axios.defaults.baseURL = "http://localhost:5001";
 
 function App() {
   return (

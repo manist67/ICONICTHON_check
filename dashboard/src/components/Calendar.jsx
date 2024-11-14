@@ -1,40 +1,49 @@
+import classNames from "classnames";
 import dayjs from "dayjs";
 import { useMemo } from "react"
+import getKoreanEnum from "../utils/getKoreanEnum";
 
 // eslint-disable-next-line react/prop-types
-export default function Calendar({ year, month }) {
+export default function Calendar({ attendances, year, month }) {
     const calenderLines = useMemo(()=>{
         const lastDate = dayjs(`${year}-${month+1}-1`).endOf("month").date();
         const lastDay = dayjs(`${year}-${month+1}-1`).endOf("month").day();
         const firstDay = dayjs(`${year}-${month+1}-1`).startOf("month").day();
         const previousLastDate = dayjs(`${year}-${month}-1`).endOf("month").date();
-        console.log(lastDate, firstDay, lastDay)
 
         const result = [];
         let startDay = -firstDay;
         let week = [];
-        for(let i = startDay, j = 0; i < lastDate; i++, j++) {
+        for(let i = startDay, j = 0; i < lastDate + (6-lastDay); i++, j++) {
+            const currentDate = dayjs(`${year}-${month+1}-1`).add(i, 'days').format("YYYY-MM-DD");
+
             if(j == 7) {
                 result.push(<div className="div-line" key={`cal-line-${i}`}>{week}</div>);
                 week = [];
                 j = 0;
             }
-            week.push(<div className="div-date item" key={`cal-date-${i}`}>
-                {i < 0 ? <p className="previous">{previousLastDate + i + 1}</p> : <p>{i + 1}</p>}
-                
-            </div>)
-        }
-
-        for(let i = 0 ; i < (6-lastDay); i++) {
-            week.push(<div className="div-date item" key={`cal-date-padding-${i}`}>
-                <p className="next">{i + 1}</p>
-            </div>)
+            if(i < 0) {
+                week.push(<div className="div-date item" key={`cal-date-${i}`}>
+                    <p className="date-indicator previous">{previousLastDate + i + 1}</p> 
+                    { attendances[currentDate] && <p className={classNames("attendance", attendances[currentDate])}>{getKoreanEnum(attendances[currentDate])}</p> }
+                </div>)
+            } else if( i >= lastDate) {
+                week.push(<div className="div-date item" key={`cal-date-${i}`}>
+                    <p className="date-indicator previous">{i - lastDate + 1}</p> 
+                    { attendances[currentDate] && <p className={classNames("attendance", attendances[currentDate])}>{getKoreanEnum(attendances[currentDate])}</p> }
+                </div>)
+            } else {
+                week.push(<div className="div-date item" key={`cal-date-${i}`}>
+                    <p className="date-indicator">{i + 1}</p>
+                    { attendances[currentDate] && <p className={classNames("attendance", attendances[currentDate])}>{getKoreanEnum(attendances[currentDate])}</p> }
+                </div>)
+            }
         }
 
         result.push(<div className="div-line" key={`cal-last-line`}>{week}</div>);
 
         return result
-    }, [year, month]);
+    }, [year, month, attendances]);
 
     return (<div className="calendar">
         <div className="div-line">
