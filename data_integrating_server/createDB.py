@@ -22,7 +22,7 @@ def create_database():
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     student INTEGER NOT NULL,
                     time DATETIME NOT NULL,
-                    isAttendance TEXT CHECK(isAttendance IN ('출석', '결석', '출튀')) NOT NULL,
+                    attendanceStatus TEXT NOT NULL,
                     FOREIGN KEY(student) REFERENCES students(id)
                 );
             ''')
@@ -32,7 +32,7 @@ def create_database():
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     student INTEGER NOT NULL,
                     time DATETIME NOT NULL,
-                    attidude BOOLEAN NOT NULL,
+                    attitude BOOLEAN NOT NULL,
                     FOREIGN KEY(student) REFERENCES students(id)
                 );
             ''')
