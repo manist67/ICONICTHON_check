@@ -107,7 +107,7 @@ def getAttendenceList(student_id):
             con.row_factory = sql.Row
             cur = con.cursor()
             cur.execute('''
-                SELECT * FROM attendance WHERE student = ? ORDER BY time DESC
+                SELECT * FROM attendance WHERE student = ? ORDER BY time ASC
             ''', (student_id,))
             rows = cur.fetchall()
 
