@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const startAudio = document.getElementById('start-button');
-const startCamera = document.getElementById('start-camera');
 
 
 (() => {
@@ -17,7 +16,6 @@ const startCamera = document.getElementById('start-camera');
     cameraCanvas.style.transform = "scaleX(-1)";
     cameraView.srcObject = stream;
     cameraView.play();
-    sendImageToServer();
   }
 
   const camInitFailed = (error) => {
@@ -35,7 +33,7 @@ const startCamera = document.getElementById('start-camera');
 let animation = null;
 let frame = 0 ;
 function sendImageToServer() {
-  if(frame++ % 60 == 0) {
+  if(frame++ % 10 == 0) {
     var cameraView = document.getElementById("cameraview");
     var cameraCanvas = document.getElementById("cameracanvas");
     var context = cameraCanvas.getContext("2d");
@@ -46,15 +44,29 @@ function sendImageToServer() {
     
     axios.post("http://localhost:3000/upload/image", {
       file: imageBase64,
-      studentId: 10
+      studentId: document.getElementById("student-id").value
     });
   }
   animation = requestAnimationFrame(()=>sendImageToServer());
 }
 
+const btnStart = document.getElementById("start-send");
+const btnStop = document.getElementById("stop-send")
+btnStart.addEventListener("click", ()=>{
+  animation = sendImageToServer();
+  btnStart.style.display = "none";
+  btnStop.style.display = "inline-block";
+});
+btnStop.addEventListener("click", ()=>{
+  cancelAnimationFrame(animation)
+  btnStart.style.display = "inline-block";
+  btnStop.style.display = "none";
+});
+
 
 startAudio.addEventListener("click", async function() {
   // Check if the browser supports the required APIs
+  document.body.style = "background: red";
   if (!window.AudioContext || 
     !window.MediaStreamAudioSourceNode || 
     !window.AudioWorkletNode) {
@@ -78,7 +90,7 @@ startAudio.addEventListener("click", async function() {
       console.log(base64data);
       await axios.post("http://localhost:3000/upload/audio", {
         file: base64data,
-        studentId: 10
+        studentId: document.getElementById("student-id").value
       })
     }
   };
@@ -87,5 +99,6 @@ startAudio.addEventListener("click", async function() {
 
   setTimeout(()=>{
     mediaRecorder.stop();
+    document.body.style = "background: none";
   }, 2000);
 })

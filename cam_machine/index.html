@@ -1,20 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="kr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>뷰 + 마이크</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
     <div id="app">
+      <input type="text" id="student-id">
+      <button type="button" id="start-button"> 출석하기 </button>
+      <button type="button" id="start-send"> 촬영 저장 시작 </button>
+      <button type="button" id="stop-send" style="display: none;"> 촬영 저장 그만 </button>
       <audio id="recordedAudio"></audio>
       
       <video id="cameraview" width="720" height="480"></video>
       <canvas id="cameracanvas" width="720" height="480"></canvas>
-      <!--camera랑 사이즈 똑같게 해주면 됩니다.-->
-
-      <button type="button" id="start-camera">캡쳐</button>
-      <button type="button" id="start-button"> 출석하기 </button>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
