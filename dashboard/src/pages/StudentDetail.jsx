@@ -31,6 +31,12 @@ export default function StudentDetail() {
             if(Number.isInteger(data?.result)) setStudentAttitude(data.result ? "집중" : "집중 못 ");
         }
 
+        setInterval(() => {
+            fetchStudent();
+            fetchAttendance();
+            fetchAttitude();
+        }, 2500);
+
         fetchStudent();
         fetchAttendance();
         fetchAttitude();
