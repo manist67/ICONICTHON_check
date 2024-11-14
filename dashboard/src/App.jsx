@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom'
 import './assets/App.css'
 import StudentList from './pages/StudentList'
-import Sidebar from './components/sidebar'
+import Sidebar from './components/Sidebar'
 import StudentDetail from './pages/StudentDetail'
 import StudentCalendar from './pages/StudentCalendar'
 import { Icon } from '@iconify/react';
