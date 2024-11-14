@@ -6,9 +6,9 @@
 #include <ArduinoJson.h>
 #define RELAY 12
 
-#define SSID "hshs"
-#define PASSWORD "cafenaver"
-#define API_PATH "http://1.168.0.27:3000/test.json"
+#define SSID "lys"
+#define PASSWORD "12345678"
+#define API_PATH "http://manist.store:5001/attitudes/3/latest"
 
 ESP8266WiFiMulti WiFiMulti;
 
@@ -37,28 +37,26 @@ void loop() {
 
     Serial.print("[HTTP] begin...\n");
     if (http.begin(client, API_PATH)) {  // HTTP
-
-
-      Serial.print("[HTTP] GET...\n");
       // start connection and send HTTP header
       int httpCode = http.GET();
 
       // httpCode will be negative on error
       if (httpCode > 0) {
-        // HTTP header has been send and Server response header has been handled
-        Serial.printf("[HTTP] GET... code: %d\n", httpCode);
 
         // file found at server
         if (httpCode == HTTP_CODE_OK) {
           String payload = http.getString();
+          char s[32] = {0};
+          payload.toCharArray(s, payload.length());
   
           JsonDocument doc;
-          DeserializationError error = deserializeJson(doc, payload);
+          DeserializationError error = deserializeJson(doc, s);
           Serial.println();
     
           // change the status of arduino board
-          if(doc["result"] == 1) digitalWrite(RELAY, HIGH);
-          else digitalWrite(RELAY, LOW);
+          Serial.printf("[HTTP] GET... val: %s \n", s);
+          if(doc["result"] == 1) digitalWrite(RELAY, LOW);
+          else digitalWrite(RELAY, HIGH);
         }
       } else {
         Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
