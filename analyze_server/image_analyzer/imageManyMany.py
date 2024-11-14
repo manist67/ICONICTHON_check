@@ -1,5 +1,6 @@
 import cv2
 import dlib
+import os
 import numpy as np
 import joblib
 import sys
@@ -7,8 +8,8 @@ from EAR import calculate_ear
 from collections import Counter
 # dlib 모델 로드
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor("data/shape_predictor_68_face_landmarks.dat")
-model = joblib.load("data/focus_model.pkl")
+predictor = dlib.shape_predictor(os.path.dirname(os.path.realpath(__file__)) + "/data/shape_predictor_68_face_landmarks.dat")
+model = joblib.load( os.path.dirname(os.path.realpath(__file__)) + "/data/focus_model.pkl")
 
 def normalize_landmarks(landmarks, width, height):
     """랜드마크 좌표를 정규화"""
@@ -46,7 +47,7 @@ def process_images(id, image_paths):
             prediction = model.predict(input_features)
             results.append(prediction[0])
         else:
-            sys.stderr.write(f"{image_path}:얼굴감지실패\n")
+            sys.stderr.write(f"{image_path}:p얼굴감지실패\n")
 
     if results:
         most_common = Counter(results).most_common(1)[0][0]
