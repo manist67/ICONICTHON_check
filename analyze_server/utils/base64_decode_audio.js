@@ -8,6 +8,8 @@ function base64_decode_audio(base64Str, filename) {
   const pathname = path.resolve(__dirname, '../files', `${filename}.${ext}`);
 
   fs.writeFileSync(pathname, base64Audio, { encoding: 'base64' });
+
+  return pathname
 }
 
 module.exports = base64_decode_audio
